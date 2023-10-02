@@ -218,59 +218,6 @@ During the first transformation performed by the Visual Mapper filter runtime th
 
 Related Issue: RDAPI-30439
 
-### Cassandra uses a deprecated garbage collector
-
-Following the upgrade to Java 11, the following warning message has been observed on startup of Cassandra, "VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release".
-
-Changing the garbage collector (GC) to `G1GC` solves the issue, the warning is not shown anymore. In addition, resource utilization might be improved in certain circumstances.
-
-To change the GC, you must modify the `jvm11-server.options` file located in the `conf` directory inside the root directory of the Cassandra install.
-
-Disable the CMS GC by removing or commenting out the following:
-
-```
-### CMS Settings
-#-XX:+UseConcMarkSweepGC
-#-XX:+CMSParallelRemarkEnabled
-#-XX:SurvivorRatio=8
-#-XX:MaxTenuringThreshold=1
-#-XX:CMSInitiatingOccupancyFraction=75
-#-XX:+UseCMSInitiatingOccupancyOnly
-#-XX:CMSWaitDuration=10000
-#-XX:+CMSParallelInitialMarkEnabled
-#-XX:+CMSEdenChunksRecordAlways
-## some JVMs will fill up their heap when accessed via JMX, see CASSANDRA-6541
-#-XX:+CMSClassUnloadingEnabled
-```
-
-Enable the G1 GC by adding or uncommenting the following:
-
-```
-### G1 Settings
-## Use the Hotspot garbage-first collector.
--XX:+UseG1GC
--XX:+ParallelRefProcEnabled
--XX:MaxTenuringThreshold=1
--XX:G1HeapRegionSize=16m
-
-#
-## Have the JVM do less remembered set work during STW, instead
-## preferring concurrent GC. Reduces p99.9 latency.
--XX:G1RSetUpdatingPauseTimePercent=5
-#
-## Main G1GC tunable: lowering the pause target will lower throughput and vise versa.
-## 200ms is the JVM default and lowest viable setting
-## 1000ms increases throughput. Keep it smaller than the timeouts in cassandra.yaml.
--XX:MaxGCPauseMillis=300
-
-## Optional G1 Settings
-# Save CPU time on large (>= 16GB) heaps by delaying region scanning
-# until the heap is 70% full. The default in Hotspot 8u40 is 40%.
--XX:InitiatingHeapOccupancyPercent=70
-```
-
-Related Issue: RDAPI-30339
-
 ## Documentation
 
 To find all available documentation for this product's version:
