@@ -218,6 +218,12 @@ During the first transformation performed by the Visual Mapper filter runtime th
 
 Related Issue: RDAPI-30439
 
+### Supported characters for filtering Applications in API Manager
+
+Characters which are not included in the ISO-8859-1 standard (for example, Chinese characters) are not supported for use in API Manager when filtering Applications.
+
+Related Issue: RDAPI-24001
+
 ## Documentation
 
 To find all available documentation for this product's version:
