@@ -401,6 +401,8 @@ Complete the following steps after running `sysupgrade apply`:
 
 Alternatively, your Linux administrator can remove the old services using the preferred Linux utility and delete the old `init.d` service files, and you can use `managedomain` to recreate the services after running `sysupgrade`.
 
+Note that when you run `managedomain` to recreate the services, two new files are created per process - a startup script in `/usr/local/bin` and a `systemd` service unit file in `/etc/systemd/system` for controlling the product as a `systemd` service as opposed to a `SysVinit` service.
+
 ### Migrate the QuickStart tutorial
 
 `sysupgrade` does not migrate the Quickstart tutorial from your old installation. To migrate it, copy the `/apigateway/webapps/quickstart` directory from your old installation (for example, `/opt/Axway/7.4.1/apigateway/webapps/quickstart`) to the same location in the new 7.7 installation (for example, `/opt/Axway/7.7/apigateway/webapps/quickstart`).
