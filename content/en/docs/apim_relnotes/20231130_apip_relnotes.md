@@ -8,7 +8,9 @@ description: null
 ---
 API Portal updates are cumulative, comprising new features and changes delivered in previous updates unless specifically indicated otherwise in the Release notes.
 
-placeholder
+This update contains security fixes, and it addresses a number of customer defects.
+
+The two-factor authentication functionality, which was unavailable since the August 22 update, has been re-introduced by way of the addition of multi-factor authentication using the Joomla 4.2 multi-factor authentication module.
 
 ## Installation
 

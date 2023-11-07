@@ -7,7 +7,11 @@ description: null
 ---
 API Gateway and API Manager updates are cumulative, comprising new features and changes delivered in previous updates unless specifically indicated otherwise in the Release notes.
 
-placeholder
+The key feature delivery for this update is the support of GraphQL, which has been the highest voted item on our [Ideas portal](https://amplifyideas.axway.com/?project=APIG&sort=popular) for some time. This support enables customers to import GraphQL specifications and apply security and policies, as well as view the specification in API Manager and try it out.
+
+In this update we have also done further work on the Helm charts for container deployment, making them more flexible and enabling new features.
+
+Support for newer base operating systems (OS) has also been delivered - RHEL 9, Oracle Linux 9, and SUSE 15 are now supported. For our Axway images used for container deployment, these have been upgraded to use Red Hat Universal Base Images (UBI) 9 as the base OS.
 
 ## Installation
 
