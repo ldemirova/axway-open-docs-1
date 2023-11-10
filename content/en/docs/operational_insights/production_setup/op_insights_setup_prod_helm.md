@@ -6,6 +6,8 @@ date: 2022-07-20
 description: Configure a production setup using Helm charts to run Operational Insights in a single instance.
 ---
 
+The following instructions relate to the AAOI versions from v5.1.0 to v5.6.0 inclusive. These charts use version 7 of the ELK image and helm charts.
+For instructions on installing charts higher than version v5.6.0 which use version 8 of the ELK images and helm charts please see [Elasticsearch v8 helm charts](/docs/operational_insights/production_setup/op_insights_setup_prod_helm/#installing-elasticsearch-version8) 
 This section covers the configuration specific for deploying Axway API Management for the Elastic solution on a Kubernetes or OpenShift cluster using Helm. The provided Helm chart is extremely flexible and configurable. You can decide which components to deploy, use your own labels, annotations, secrets, and volumes to customize the deployment to your needs.
 
 {{< alert title="Note" >}}
@@ -376,3 +378,40 @@ Manually create a secret in Logstash:
 ```bash
 kubectl create secret generic axway-elk-apim4elastic-logstash-secret --from-literal=LOGSTASH_USERNAME=<username> --from-literal=LOGSTASH_PASSWORD=<password> --from-literal=xpack.monitoring.elasticsearch.username=<system_username> --from-literal=xpack.monitoring.elasticsearch.password=<system_password> -n apim-elk
 ```
+
+## Installing Elasticsearch Version8
+
+With the release of v5.7.0 of these helm charts, in November 20203, the version of Elasticsearch images and the elasticsearch helm charts installed has been upgraded from 7 to 8. With this change there are some differences in the method of deployment of the helm chart. These differences concern the helm install command. All other instructions above for installing and configuring v5.6.0 and lower of the AAOI are relevant for v5.7.0
+
+More details on the elasticsearch helm charts 8.5.1 [here:](https://github.com/elastic/helm-charts)
+
+### New install of AAOI using v5.7.0
+
+Follow the instructions here [Docker Compose](/docs/operational_insights/op_insights_basic_setup/#basic-setup-with-docker-compose) to download the release package v5.7.0
+
+Create your values file as described above.
+
+When ready to install follow the instructions here.
+
+1. kibana cannot be installed as the same time as elasticsearch and so must be disabled for the initial helm install and then enabled when elasticsearch has fully installed
+
+When ready to install follow the instructions here.
+
+1. kibana cannot be installed as the same time as elasticsearch so must be disabled for the initial helm install
+1. When enabled when elasticsearch has fully installed and is healthy the helm chart can be upgraded with kibana now enabled
+1. kibana now has credentials for login in to the UI and the password can be extracted from the credentials secret
+
+Example
+
+```
+cd apim4elastic
+helm upgrade --install axway-elk -f myvalues.yaml . --set values.kibana.enabled=false
+kubectl get pods
+#wait 5 minutes
+curl -kv https://elasticsearchhost:9200 #change to relevant name of elasticsearch host
+helm upgrade --install axway-elk -f myvalues.yaml . --set values.kibana.enabled=true
+kubectl get secrets
+
+```
+
+### Migration of AAOI from a version lower than v5.7.0 to v5.7.0
