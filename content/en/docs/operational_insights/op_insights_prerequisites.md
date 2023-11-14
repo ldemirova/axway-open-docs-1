@@ -103,8 +103,7 @@ The following are the requirements specific to deploy Operational Insights on Do
 * [Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) already installed.
 
 {{< alert title="Note" >}}
-To access sample files referred throughout this documentation for user customizations, follow the [docker compose](/docs/operational_insights/op_insights_basic_setup/#download-and-extract-the-release-package) section to download the release package.
-{{< /alert >}}
+To access sample files referred throughout this section for user customizations, follow the instructions on the [Docker Compose](/docs/operational_insights/op_insights_basic_setup/#basic-setup-with-docker-compose) section to download the release package. {{< /alert >}}
 
 ### Kubernetes and OpenShift knowledge
 

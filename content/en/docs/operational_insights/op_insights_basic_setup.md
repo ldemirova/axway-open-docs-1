@@ -120,15 +120,16 @@ To set up Operational Insights with Helm, see [setup Operational insights in you
 
 The following sections cover the configuration specific to using Docker Compose.
 
-1. Pull down the latest APIBuilder4Elastic image from [repository.axway.com](https://repository.axway.com/catalog?artifactType=DockerImage&products=a1Ew000000N2419EAB).
-2. Download the corresponding `.tar.gz` configuration files from the Axway repository.
+1. Pull down the latest APIBuilder4Elastic image from [repository.axway.com](https://repository.axway.com/catalog?artifactType=DockerImage&q=apibuilder4elastic).
+1. Download the corresponding `.tgz` configuration files from the [repository.axway.com] (https://repository.axway.com/catalog?q=AAOI&artifactType=Package).
+1. Untar the `.tgz` file and cd into the top level directory `apim4elastic`
 3. Configure the image to be used in your configuration files by changing the `image` parameter inside of the `docker-compose.yaml`.
 
-To simplify updates, it is recommended to create a symlink folder and rename the provided `env-sample` file to `.env` in each machine as follows:
+To simplify updates, it is recommended to create a symlink folder and rename the provided `env-sample` file to `.env` in each machine as in the following example:
 
 ```bash
-ln -s axway-apim-elk-v1.0.0 axway-apim-elk
-cd axway-apim-elk-v1.0.0
+ln -s axway-apim-elk-v5.3.0 apim4elastic
+cd axway-apim-elk-v5.3.0
 cp env-sample .env
 ```
 
@@ -251,7 +252,7 @@ docker-compose up -d
 Check that the docker containers for Logstash, API Builder, and Memached are running.
 
 ```bash
-[ec2-user@ip-172-31-61-59 axway-apim-elk-v1.0.0]$ docker ps
+[ec2-user@ip-172-31-61-59 axway-apim-elk-v5.3.0]$ docker ps
 ```
 
 Result:

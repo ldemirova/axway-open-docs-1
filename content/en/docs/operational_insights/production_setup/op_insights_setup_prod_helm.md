@@ -65,8 +65,8 @@ elasticsearch:
 
 After your Elasticsearch volumes are created and your `myvalues.yaml` file is configured, you can start the installation as follows. The Helm release name, `axway-elk`, is mandatory. For more information, see [FAQ - Why is the Helm release name axway-elk](/docs/operational_insights/op_insights_faq/#why-is-the-helm-release-name-axway-elk).
 
-The following helm install instructions relate to the AAOI versions v5.1.0 to v5.6.0 inclusive. These charts use version 7 of the Elastic Stack (aka ELK) images and helm charts.
-For instructions on installing charts higher than version v5.6.0 which use version 8 of the ELK images and helm charts please see [ELK v8 helm charts](/docs/operational_insights/production_setup/op_insights_setup_prod_helm/#installing-elk-version8). 
+The following helm install instructions relate to the AAOI versions v5.1.0 to v5.6.0 inclusive. These charts use version 7 of the ELK images and helm charts.
+For instructions on installing charts higher than version v5.6.0 which use version 8.10.2 of the ELK images and version 8.5.1 of the ELK helm charts please see [ELK v8 helm charts](/docs/operational_insights/production_setup/op_insights_setup_prod_helm/#installing-elk-version8).
 
 ```bash
 helm install -n apim-elk -f myvalues.yaml axway-elk <repository.axway.com>
@@ -383,9 +383,9 @@ kubectl create secret generic axway-elk-apim4elastic-logstash-secret --from-lite
 
 ## Installing ELK Version8
 
-With the release of v5.7.0 of these AAOI helm charts, in November 2023, the version of the ELK images and the ELK helm charts installed have been upgraded from 7 to 8. With this change there are some differences in the method of deployment of the helm chart. These differences concern the helm install command. All other instructions above for installing and configuring v5.6.0 and lower of the AAOI are relevant for v5.7.0
+With the release of v5.7.0 of the AAOI helm charts, in November 2023, the version of the ELK images and the ELK helm charts installed have been upgraded from 7 to 8. With this change there are some differences in the method of deployment of the helm chart. These differences concern the helm install command. Most of the other instructions above for installing and configuring v5.6.0 and lower of the AAOI are relevant for v5.7.0.
 
-More details on the elasticsearch helm charts 8.5.1 [here:](https://github.com/elastic/helm-charts)
+For further details on the elasticsearch helm charts 8.5.1 see the documentation [here:](https://github.com/elastic/helm-charts)
 
 ### New install of AAOI using v5.7.0
 
