@@ -68,6 +68,8 @@ After your Elasticsearch volumes are created and your `myvalues.yaml` file is co
 The following helm install instructions relate to the AAOI versions v5.1.0 to v5.6.0 inclusive. These charts use version 7 of the ELK images and helm charts.
 For instructions on installing charts higher than version v5.6.0 which use version 8.10.2 of the ELK images and version 8.5.1 of the ELK helm charts please see [ELK v8 helm charts](/docs/operational_insights/production_setup/op_insights_setup_prod_helm/#installing-elk-version8).
 
+{{< alert title="Note" >}}It is not possible to downgrade to version v5.6.0 or lower after moving to a v5.7.0 or higher. This is because of the backward incompatability between the v7 and v8 of the Elastic helm charts.{{< /alert >}}
+
 ```bash
 helm install -n apim-elk -f myvalues.yaml axway-elk <repository.axway.com>
 ```
