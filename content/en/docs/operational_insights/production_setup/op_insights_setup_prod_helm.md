@@ -440,3 +440,31 @@ As above the kibana interface will now have a username and password.
 As this is a migration it may take longer for the data to appear on the kibana dashboard
 
 #### Troubleshooting Migration
+
+The Elastic helm 8.5.1 charts do not allow kibana to be installed at the same time as elasticsearch as discussed above. You may also get issues when uninstalling or upgrading
+the helm chart. If so you may have to clean up resources, upgrade with kibana disabled and then upgrade with kibana enabled.
+
+Examples of some cleanup operations that may be required are below
+
+Sometimes a few resources may have to be cleaned if kibana was installed at the wrong time and failed
+
+```
+kubectl delete rolebindings.rbac.authorization.k8s.io "pre-install-axway-elk-apim4elastic-kibana"
+kubectl delete roles.rbac.authorization.k8s.io "pre-install-axway-elk-apim4elastic-kibana"
+kubectl delete cm "axway-elk-apim4elastic-kibana-helm-scripts"
+kubectl delete sa "pre-install-axway-elk-apim4elastic-kibana"
+kubectl delete secret axway-elk-apim4elastic-kibana-es-token
+kubectl delete roles.rbac.authorization.k8s.io post-delete-axway-elk-apim4elastic-kibana
+```
+
+Sometimes a pre install job may have to be cleaned up 
+
+```
+kubectl delete job pre-install-axway-elk-apim4elastic-kibana
+```
+
+Sometimes a post install job may have to be cleaned up 
+
+```
+kubectl delete job post-install-axway-elk-apim4elastic-kibana
+```
