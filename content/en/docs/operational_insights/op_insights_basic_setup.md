@@ -121,9 +121,9 @@ To set up Operational Insights with Helm, see [setup Operational insights in you
 The following sections cover the configuration specific to using Docker Compose.
 
 1. Pull down the latest APIBuilder4Elastic image from [repository.axway.com](https://repository.axway.com/catalog?artifactType=DockerImage&q=apibuilder4elastic).
-1. Download the corresponding `.tgz` configuration files from the [repository.axway.com] (https://repository.axway.com/catalog?q=AAOI&artifactType=Package).
-1. Untar the `.tgz` file and cd into the top level directory `apim4elastic`
-3. Configure the image to be used in your configuration files by changing the `image` parameter inside of the `docker-compose.yaml`.
+2. Download the corresponding `.tgz` configuration files from the [repository.axway.com] (https://repository.axway.com/catalog?q=AAOI&artifactType=Package).
+3. Untar the `.tgz` file and cd into the top level directory `apim4elastic`
+4. Configure the image to be used in your configuration files by changing the `image` parameter inside of the `docker-compose.yaml`.
 
 To simplify updates, it is recommended to create a symlink folder and rename the provided `env-sample` file to `.env` in each machine as in the following example:
 

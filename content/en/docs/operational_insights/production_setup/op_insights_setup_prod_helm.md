@@ -62,7 +62,6 @@ elasticsearch:
 
 ## Install the Helm chart
 
-
 After your Elasticsearch volumes are created and your `myvalues.yaml` file is configured, you can start the installation as follows. The Helm release name, `axway-elk`, is mandatory. For more information, see [FAQ - Why is the Helm release name axway-elk](/docs/operational_insights/op_insights_faq/#why-is-the-helm-release-name-axway-elk).
 
 The following helm install instructions relate to the AAOI versions v5.1.0 to v5.6.0 inclusive. These charts use version 7 of the ELK images and helm charts.
@@ -398,12 +397,12 @@ Create your values file as described above.
 When ready to install follow the instructions here.
 
 1. kibana cannot be installed as the same time as elasticsearch so must be disabled for the initial helm install
-1. Install the helm chart with kibana disabled
-1. Wait while elasticsearch, logstash and filebeat start up and stabilize
-1. When elasticsearch has fully installed and is healthy run helm upgrade install of the helm chart with kibana enabled
-1. Wait while kibana stabilizes
-1. kibana now has credentials for login in to the UI and the password can be extracted from the credentials secret
-1. The kibana username is always elastic and the password can be set in the values file or else will be randomly generated
+2. Install the helm chart with kibana disabled
+3. Wait while elasticsearch, logstash and filebeat start up and stabilize
+4. When elasticsearch has fully installed and is healthy run helm upgrade install of the helm chart with kibana enabled
+5. Wait while kibana stabilizes
+6. kibana now has credentials for login in to the UI and the password can be extracted from the credentials secret
+7. The kibana username is always elastic and the password can be set in the values file or else will be randomly generated
 
 Example
 
@@ -423,7 +422,7 @@ echo $PASSWORD
 
 Migration to version 5.7.0 or higher of the helm charts is done using the same helm upgrade --install command used above for a clean install
 
-Do not uninstall the earlier version. 
+Do not uninstall the earlier version.
 
 #### helm upgrade
 
@@ -461,13 +460,13 @@ kubectl delete secret axway-elk-apim4elastic-kibana-es-token
 kubectl delete roles.rbac.authorization.k8s.io post-delete-axway-elk-apim4elastic-kibana
 ```
 
-Sometimes a pre install job may have to be cleaned up 
+Sometimes a pre install job may have to be cleaned up
 
 ```
 kubectl delete job pre-install-axway-elk-apim4elastic-kibana
 ```
 
-Sometimes a post install job may have to be cleaned up 
+Sometimes a post install job may have to be cleaned up
 
 ```
 kubectl delete job post-install-axway-elk-apim4elastic-kibana
