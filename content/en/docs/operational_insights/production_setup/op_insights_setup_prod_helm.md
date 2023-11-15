@@ -358,7 +358,7 @@ Disable the secrets in you `values` file:
        enabled: false
 ```
 
-Manually create a secret in Kibana:
+Manually create a secret in Kibana (Note that in v8 of ELK helm charts the credentials elastic/password are generated in the credentials secret as part of the deployment):
 
 ```bash
 kubectl create secret generic axway-elk-apim4elastic-kibana-secret --from-literal=KIBANA_SYSTEM_USERNAME=<username> --from-literal=KIBANA_SYSTEM_PASSWORD=<password> -n apim-elk
@@ -401,6 +401,7 @@ When ready to install follow the instructions here.
 1. When elasticsearch has fully installed and is healthy run helm upgrade install of the helm chart with kibana enabled
 1. Wait while kibana stabilizes
 1. kibana now has credentials for login in to the UI and the password can be extracted from the credentials secret
+1. The kibana username is always elastic and the password can be set in the values file or else will be randomly generated
 
 Example
 
@@ -411,8 +412,9 @@ kubectl get pods
 #wait approximately 5 minutes
 curl -kv https://elasticsearchhost:9200 #change to relevant name of elasticsearch host
 helm upgrade --install axway-elk -f myvalues.yaml . --set values.kibana.enabled=true
-kubectl get secrets
-
+#Now extract the password
+PASSWORD=$(kubectl get secret axway-elk-apim4elastic-elasticsearch-credentials -o=jsonpath='{.data.password}' | base64 --decode)
+echo $PASSWORD
 ```
 
 ### Migration of AAOI from a version lower than v5.7.0 to v5.7.0
