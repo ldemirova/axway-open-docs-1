@@ -386,7 +386,6 @@ kubectl create secret generic axway-elk-apim4elastic-logstash-secret --from-lite
 
 With the release of v5.7.0 of the AAOI helm charts, in November 2023, the version of the ELK images and the ELK helm charts installed has been upgraded from 7 to 8. With this change there are some differences in the method of deployment of the helm chart. These differences concern the helm install command. Most of the other instructions above for installing and configuring v5.6.0 and lower of the AAOI are also relevant for v5.7.0 of the AAOI.
 
-
 For further details on the elasticsearch helm charts 8.5.1 see the documentation [here:](https://github.com/elastic/helm-charts)
 
 ### New install of AAOI using v5.7.0
