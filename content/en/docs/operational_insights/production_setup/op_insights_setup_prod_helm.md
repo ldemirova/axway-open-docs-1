@@ -384,7 +384,8 @@ kubectl create secret generic axway-elk-apim4elastic-logstash-secret --from-lite
 
 ## Installing ELK Version8
 
-With the release of v5.7.0 of the AAOI helm charts, in November 2023, the version of the ELK images and the ELK helm charts installed have been upgraded from 7 to 8. With this change there are some differences in the method of deployment of the helm chart. These differences concern the helm install command. Most of the other instructions above for installing and configuring v5.6.0 and lower of the AAOI are relevant for v5.7.0.
+With the release of v5.7.0 of the AAOI helm charts, in November 2023, the version of the ELK images and the ELK helm charts installed has been upgraded from 7 to 8. With this change there are some differences in the method of deployment of the helm chart. These differences concern the helm install command. Most of the other instructions above for installing and configuring v5.6.0 and lower of the AAOI are also relevant for v5.7.0 of the AAOI.
+
 
 For further details on the elasticsearch helm charts 8.5.1 see the documentation [here:](https://github.com/elastic/helm-charts)
 
@@ -394,28 +395,32 @@ Follow the instructions here [Docker Compose](/docs/operational_insights/op_insi
 
 Create your values file as described above.
 
-When ready to install follow the instructions here.
+{{< alert title="Note" >}}
+The main change with ELK v8 is that kibana cannot be installed as the same time as elasticsearch so must be disabled for the initial helm install {{< /alert >}}
 
-1. kibana cannot be installed as the same time as elasticsearch so must be disabled for the initial helm install
-2. Install the helm chart with kibana disabled
-3. Wait while elasticsearch, logstash and filebeat start up and stabilize
-4. When elasticsearch has fully installed and is healthy run helm upgrade install of the helm chart with kibana enabled
-5. Wait while kibana stabilizes
-6. kibana now has credentials for login in to the UI and the password can be extracted from the credentials secret
-7. The kibana username is always elastic and the password can be set in the values file or else will be randomly generated
+When ready to install follow the guidelines here and look at the sample commands
 
-Example
+1. Install the helm chart with kibana disabled
+2. Wait while elasticsearch, logstash and filebeat start up and stabilize
+3. When elasticsearch has fully installed and is healthy run helm upgrade install of the helm chart with kibana enabled
+4. Wait while kibana stabilizes - this could take from 5 to 10 minutes
+5. kibana now has credentials for logging in to the UI and the password can be extracted from the credentials secret
+6. The kibana username is always elastic and the password can be set in the values file or else will be randomly generated
+
+Sample commands
 
 ```
 cd apim4elastic
 helm upgrade --install axway-elk -f myvalues.yaml . --set values.kibana.enabled=false
 kubectl get pods
 #wait approximately 5 minutes
-curl -kv https://elasticsearchhost:9200 #change to relevant name of elasticsearch host
+curl -kv https://elasticsearchhost:92000 #change to relevant name of elasticsearch host
 helm upgrade --install axway-elk -f myvalues.yaml . --set values.kibana.enabled=true
+#wait approximately 10 minutes before attempting to log on to the kibana dashboard
 #Now extract the password
 PASSWORD=$(kubectl get secret axway-elk-apim4elastic-elasticsearch-credentials -o=jsonpath='{.data.password}' | base64 --decode)
 echo $PASSWORD
+#
 ```
 
 ### Migration of AAOI from a version lower than v5.7.0 to v5.7.0
@@ -428,6 +433,8 @@ Do not uninstall the earlier version.
 
 The instructions to upgrade to the version 8 helm charts are very similar to a clean install although you will need to give the first helm upgrade command more time before moving on
 
+Sample commands
+
 ```
 cd apim4elastic
 helm upgrade --install axway-elk -f myvalues.yaml . --set values.kibana.enabled=false
@@ -436,7 +443,6 @@ kubectl get pods
 curl -kv https://elasticsearchhost:9200 #change to relevant name of elasticsearch host
 helm upgrade --install axway-elk -f myvalues.yaml . --set values.kibana.enabled=true
 #wait approximately 10 minutes before attempting to log on to the kibana dashboard
-kubectl get secrets
 ```
 
 As above the kibana interface will now have a username and password.
@@ -452,10 +458,10 @@ Examples of some cleanup operations that may be required are below
 Sometimes a few resources may have to be cleaned if kibana was installed at the wrong time and failed
 
 ```
-kubectl delete rolebindings.rbac.authorization.k8s.io "pre-install-axway-elk-apim4elastic-kibana"
-kubectl delete roles.rbac.authorization.k8s.io "pre-install-axway-elk-apim4elastic-kibana"
-kubectl delete cm "axway-elk-apim4elastic-kibana-helm-scripts"
-kubectl delete sa "pre-install-axway-elk-apim4elastic-kibana"
+kubectl delete rolebindings.rbac.authorization.k8s.io pre-install-axway-elk-apim4elastic-kibana
+kubectl delete roles.rbac.authorization.k8s.io pre-install-axway-elk-apim4elastic-kibana
+kubectl delete cm axway-elk-apim4elastic-kibana-helm-scripts
+kubectl delete sa pre-install-axway-elk-apim4elastic-kibana
 kubectl delete secret axway-elk-apim4elastic-kibana-es-token
 kubectl delete roles.rbac.authorization.k8s.io post-delete-axway-elk-apim4elastic-kibana
 ```
