@@ -36,7 +36,7 @@ placeholder
 
 It is important, especially when upgrading from an earlier version, to be aware of the following changes in the behavior or operation of the product in this update, which might impact your current installation.
 
-### placeholder 2
+### GraphQL support
 
 placeholder
 
