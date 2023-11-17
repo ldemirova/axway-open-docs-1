@@ -69,6 +69,8 @@ tar -xvzf APIGateway_AAOI_HelmPackage_<chart-version>_Utility_linux-x86-64_<buil
 cd apim4elastic
 ```
 
+{{< alert title="Note" >}}Refer to `repository.axway.com` for the most recent version of the Helm chart and the corresponding configuration files. {{< /alert >}}
+
 ## Deploy the Helm chart
 
 After your Elasticsearch volumes are created and your `myvalues.yaml` file is configured, you can start the installation as follows. The Helm release name, `axway-elk`, is mandatory. For more information, see [FAQ - Why is the Helm release name axway-elk](/docs/operational_insights/op_insights_faq/#why-is-the-helm-release-name-axway-elk).
@@ -81,8 +83,6 @@ For instructions on installing charts higher than version v5.6.0 which use versi
 ```bash
 helm install -n apim-elk -f myvalues.yaml axway-elk .
 ```
-
-{{< alert title="Note" >}}Refer to `repository.axway.com` for the most recent version of the Helm chart and the corresponding configuration files. {{< /alert >}}
 
 To check the status of the deployment, pods, services, and son on, run the following commands:
 
