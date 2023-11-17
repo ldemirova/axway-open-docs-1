@@ -45,3 +45,7 @@ In the event of a failed migration, you can restore your Cassandra environment t
 After [restoring a keyspace](/docs/cass_admin/admin_cassandra_classic/cassandra_bur#restore-the-keyspace-backup) using the `apigw-backup-tool`, the restored KPS data should be visible via the API Manager UI. If this is not the case, the Cassandra keyspace name might need to be updated in the [Server Settings](/docs/apim_administration/apimgr_admin/api_mgmt_config_ps/) via Policy Studio.
 
 By default, the keyspace name value is referenced via the `x${DOMAINID}_${GROUPID}` variable. When API Manager is configured a keyspace is created matching this naming convention. If the keyspace being restored has a different name (possibly created with a different API Gateway), you must replace the default Cassandra keyspace value with the new name.
+
+### Cassandra Internode Communication
+
+Default values are set for internode communication within a Cassandra cluster from Cassandra version 4. These settings are `internode_application_send_queue_reserve_endpoint_capacity_in_bytes` and `internode_application_receive_queue_reserve_endpoint_capacity_in_bytes`. Users should consider updating these default values where large volumes are of data are being transferred between the Cassandra nodes if the consistency level is set to `LOCAL_QUORUM`.
