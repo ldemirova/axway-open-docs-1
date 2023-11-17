@@ -291,10 +291,9 @@ The following example shows how to create a secret to store API Manager username
 3. Install or upgrade APIM4Elastic:
 
     ```bash
-    helm upgrade -n apim-elk -f myvalues.yaml axway-elk <repository.axway.com>
+    cd apim4elastic
+    helm upgrade -n apim-elk -f myvalues.yaml axway-elk .
     ```
-
-   {{< alert title="Note" >}}Refer to `repository.axway.com` for the most recent version of the Helm chart. {{< /alert >}}
 
 As a result of this section, you have set up your `myvalues.yaml` Helm chart to run Operational Insights in a single instance in a production environment.
 
