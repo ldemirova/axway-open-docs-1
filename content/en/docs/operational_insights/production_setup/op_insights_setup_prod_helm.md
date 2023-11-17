@@ -60,7 +60,16 @@ elasticsearch:
     storageClassName: example-nfs-share
 ```
 
-## Install the Helm chart
+## Download the Helm chart
+
+Download helm package from `repository.axway.com` and extract contents
+
+```
+tar -xvzf APIGateway_AAOI_HelmPackage_<chart-version>_Utility_linux-x86-64_<build-number>.tgz
+cd apim4elastic
+```
+
+## Deploy the Helm chart
 
 After your Elasticsearch volumes are created and your `myvalues.yaml` file is configured, you can start the installation as follows. The Helm release name, `axway-elk`, is mandatory. For more information, see [FAQ - Why is the Helm release name axway-elk](/docs/operational_insights/op_insights_faq/#why-is-the-helm-release-name-axway-elk).
 
@@ -70,7 +79,7 @@ For instructions on installing charts higher than version v5.6.0 which use versi
 {{< alert title="Note" >}}It is not possible to downgrade to version v5.6.0 or lower after moving to a v5.7.0 or higher. This is because of the backward incompatability between the v7 and v8 of the Elastic helm charts.{{< /alert >}}
 
 ```bash
-helm install -n apim-elk -f myvalues.yaml axway-elk <repository.axway.com>
+helm install -n apim-elk -f myvalues.yaml axway-elk .
 ```
 
 {{< alert title="Note" >}}Refer to `repository.axway.com` for the most recent version of the Helm chart and the corresponding configuration files. {{< /alert >}}
